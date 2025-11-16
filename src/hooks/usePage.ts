@@ -6,7 +6,6 @@ export function usePage() {
     const [storedSavings] = useStorageState("saving_goal");
 
     useEffect(() => {
-        console.log("Stored savings:", storedSavings);
         if (storedSavings) {
             setPage("home");
         } else {

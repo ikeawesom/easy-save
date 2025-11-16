@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+p {
+  @apply text-md;
+}

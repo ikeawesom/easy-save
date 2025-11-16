@@ -11,7 +11,7 @@ export default function Container({
   return (
     <div
       className={twMerge(
-        "max-w-[800px] w-full p-4 bg-white rounded-xl border border-gray-100 shadow-lg",
+        "max-w-[800px] w-full p-4 bg-white rounded-xl border border-gray-100 shadow-lg overflow-hidden",
         className
       )}
     >

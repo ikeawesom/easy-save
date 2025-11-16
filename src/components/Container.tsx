@@ -1,8 +1,20 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
-export default function Container({ children }: { children: React.ReactNode }) {
+export default function Container({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="max-w-[800px] w-full p-4 bg-white rounded-xl border border-gray-100 shadow-lg">
+    <div
+      className={twMerge(
+        "max-w-[800px] w-full p-4 bg-white rounded-xl border border-gray-100 shadow-lg",
+        className
+      )}
+    >
       {children}
     </div>
   );

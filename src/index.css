@@ -16,6 +16,6 @@ h3 {
   @apply text-xl;
 }
 
-p {
-  @apply text-md;
+button {
+  @apply cursor-pointer duration-200 hover:brightness-90;
 }

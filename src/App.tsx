@@ -54,7 +54,7 @@ function App() {
             </div>
           </div>
         ) : (
-          <form onSubmit={submit} className="flex flex-col gap-4">
+          <form onSubmit={submit} className="flex flex-col gap-2">
             <TextInput
               enabled={!locked}
               onChange={onChangeSavings}

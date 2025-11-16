@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function useStorageState(key: string) {
-    const [value, setValue] = useState<number>(0);
+    const [value, setValue] = useState<any>(0);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

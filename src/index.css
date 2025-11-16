@@ -16,6 +16,6 @@ h3 {
   @apply text-xl;
 }
 
-button:not(.custom) {
+button:not(.custom):enabled {
   @apply cursor-pointer duration-200 hover:brightness-90;
 }

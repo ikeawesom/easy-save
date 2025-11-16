@@ -1,25 +1,40 @@
-import Container from "./components/Container";
-import TextInput from "./components/TextInput";
 import { twMerge } from "tailwind-merge";
-import { useSavings } from "./hooks/useSavings";
+import Container from "./components/Container";
 import ErrorText from "./components/ErrorText";
+import { Modal } from "./components/Modal";
+import TextInput from "./components/TextInput";
+import { useSavings } from "./hooks/useSavings";
 import { formatMoney } from "./utils";
 
-function App() {
+export default function App() {
   const {
     savings,
     monthlySavings,
     locked,
     error,
+    isModalOpen,
     onChangeSavings,
     onChangeMonthlySavings,
     submit,
-    setLocked,
+    openModal,
+    closeModal,
+    isLoading,
   } = useSavings();
+
+  const isInvalidSavings =
+    savings <= 0 || monthlySavings <= 0 || monthlySavings > savings;
+
+  if (isLoading) {
+    return (
+      <section className="w-full flex items-center justify-center min-h-screen bg-linear-to-br from-cyan-100 via-cyan-50 to-white">
+        <div className="text-cyan-600 text-lg">Loading...</div>
+      </section>
+    );
+  }
 
   return (
     <section className="w-full flex items-center justify-start flex-col gap-6 p-10 min-h-screen bg-linear-to-br from-cyan-100 via-cyan-50 to-white">
-      <h1 className="w-full text-center">
+      <h1 className="w-full text-center text-4xl">
         Easy<span className="font-bold text-cyan-600">Save</span>
       </h1>
 
@@ -36,9 +51,10 @@ function App() {
 
               <button
                 className={twMerge(
-                  "bg-white text-gray-800 rounded-md py-2 px-2 border shadow-sm border-gray-100"
+                  "bg-white text-gray-800 rounded-md py-2 px-3 border shadow-sm border-gray-100 hover:bg-gray-50 transition-colors"
                 )}
-                onClick={() => setLocked(false)}
+                onClick={openModal}
+                type="button"
               >
                 ✎
               </button>
@@ -54,44 +70,58 @@ function App() {
             </div>
           </div>
         ) : (
-          <form onSubmit={submit} className="flex flex-col gap-2">
-            <TextInput
-              enabled={!locked}
-              onChange={onChangeSavings}
-              value={savings}
-              id="save_amt"
-              label="Enter savings goal:"
-            />
-
-            <TextInput
-              enabled={!locked}
-              onChange={onChangeMonthlySavings}
-              value={monthlySavings}
-              id="monthly_save_amt"
-              label="Enter monthly savings:"
-            />
-
+          <div className="flex flex-col gap-4 items-center justify-center py-8">
+            <h3 className="text-gray-600 text-center">
+              Set your savings goals to get started!
+            </h3>
             <button
-              className={twMerge(
-                "bg-cyan-600 text-white rounded-md py-2 px-6 mt-3",
-                locked ? "opacity-45" : "cursor-pointer"
-              )}
-              type="submit"
-              disabled={locked}
+              className="bg-cyan-600 text-white text-lg shadow-md rounded-md py-2 px-6 hover:bg-cyan-700 transition-colors"
+              onClick={openModal}
             >
-              Submit
+              Begin Saving
             </button>
-          </form>
-        )}
-
-        {error && (
-          <div className="mt-4">
-            <ErrorText errorText={error} />
           </div>
         )}
       </Container>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} allowClose={false}>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-2xl font-bold text-gray-800">
+            {locked ? "Edit Savings Goals" : "Set Savings Goals"}
+          </h2>
+
+          <TextInput
+            enabled={true}
+            onChange={onChangeSavings}
+            value={savings}
+            id="save_amt"
+            label="Enter savings goal:"
+          />
+
+          <TextInput
+            enabled={true}
+            onChange={onChangeMonthlySavings}
+            value={monthlySavings}
+            id="monthly_save_amt"
+            label="Enter monthly savings:"
+          />
+
+          {error && <ErrorText errorText={error} />}
+
+          <div className="flex gap-3 justify-end mt-2">
+            <button
+              disabled={isInvalidSavings}
+              className={twMerge(
+                "bg-cyan-600 text-white rounded-md py-2 px-6 hover:bg-cyan-700 transition-colors",
+                isInvalidSavings ? "opacity-50" : ""
+              )}
+              onClick={submit}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </Modal>
     </section>
   );
 }
-
-export default App;

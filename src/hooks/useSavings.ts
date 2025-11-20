@@ -3,6 +3,13 @@ import { useStorageState } from "./useStorageState";
 
 export function useSavings() {
   const [savingGoal, setSavingGoal, savingGoalLoading] = useStorageState("saving_goal");
+  const [, setShowMonthlySavingsReach] = useStorageState(
+    "show_monthly_savings_reach"
+  );
+
+  const [, setShowEditSavings] = useStorageState(
+    "show_final_savings_reach"
+  );
   const [monthlySavingGoal, setMonthlySavingGoal, monthlyLoading] =
     useStorageState("monthly_savings");
 
@@ -51,6 +58,8 @@ export function useSavings() {
       setError(undefined);
       setLocked(true);
       setIsModalOpen(false);
+      setShowMonthlySavingsReach(0);
+      setShowEditSavings(0);
     } else {
       setError("Please enter valid savingGoal values greater than 0!");
     }

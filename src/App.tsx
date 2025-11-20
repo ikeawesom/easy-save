@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { useStorageState } from "./hooks/useStorageState";
 import type { SavingsType } from "./financeTypes";
 import { useAddSavings } from "./hooks/useAddSavings";
-import SavingRecord from "./components/savings/SavingRecord";
+import SavingsContainer from "./components/savings/SavingsContainer";
 
 export default function App() {
   const {
@@ -106,30 +106,7 @@ export default function App() {
           <h3 className="w-full mt-4 font-bold max-w-[800px]">
             Recent Savings
           </h3>
-          <Container
-            className={twMerge(
-              "min-h-[30vh]",
-              current_savings.length === 0 && "grid place-items-center"
-            )}
-          >
-            {current_savings.length > 0 ? (
-              <div className="overflow-hidden w-full rounded-lg [box-shadow:inset_0_2px_4px_0_rgba(0,0,0,0.2)]">
-                {current_savings
-                  .sort(
-                    (a, b) =>
-                      new Date(b.date).getTime() - new Date(a.date).getTime()
-                  )
-                  // .filter((_, i: number) => i < 5)
-                  .map((saving: SavingsType, index: number) => {
-                    return (
-                      <SavingRecord key={index} saving={saving} index={index} />
-                    );
-                  })}
-              </div>
-            ) : (
-              <p className="text-gray-500">Hmmm, let's get saving!</p>
-            )}
-          </Container>
+          <SavingsContainer current_savings={current_savings} />
           <button
             onClick={openSavingsModal}
             className="fixed bottom-10 right-10 bg-cyan-600 text-white text-3xl font-bold rounded-full  flex items-center pb-2 px-3 justify-center hover:brightness-50 duration-200"

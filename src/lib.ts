@@ -1,6 +1,6 @@
 export const pages = [
     { id: "home", name: "Home" },
-    { id: "expenses", name: "Expenses" },
+    // { id: "expenses", name: "Expenses" },
     { id: "settings", name: "Settings" }
 ] as PageType[];
 

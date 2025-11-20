@@ -12,3 +12,6 @@ export interface SavingsType {
     amount: number;
 }
 
+export interface MonthlySavings {
+    [month: string]: SavingsType[];
+}

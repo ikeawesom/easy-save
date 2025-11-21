@@ -135,8 +135,15 @@ export default function App() {
             <div>
               <p className="text-gray-700">Total savings this month:</p>
               <div className="flex items-center justify-between">
-                <h1 className="font-bold text-cyan-600">
-                  ${formatMoney(current_month_savings)}
+                <h1
+                  className={twMerge(
+                    "font-bold",
+                    current_month_savings < 0 ? "text-red-700" : "text-cyan-600"
+                  )}
+                >
+                  {current_month_savings < 0
+                    ? `-$${formatMoney(current_month_savings * -1)}`
+                    : `$${formatMoney(current_month_savings)}`}
                 </h1>
                 {prev_month_savings > 0 && (
                   <p
@@ -181,12 +188,23 @@ export default function App() {
 
               <p className="text-gray-700 mt-4">Total savings:</p>
               <div className="flex items-center justify-between">
-                <h1 className="font-bold text-cyan-600">
-                  ${formatMoney(current_savings_val ?? 0)}
-                  <span className="text-sm font-normal">
+                <h1
+                  className={twMerge(
+                    "font-bold",
+                    current_month_savings < 0 ? "text-red-700" : "text-cyan-600"
+                  )}
+                >
+                  {current_month_savings < 0
+                    ? `-$${formatMoney(current_month_savings * -1)}`
+                    : `$${formatMoney(current_month_savings)}`}
+
+                  <span className="text-sm font-normal text-cyan-600">
                     /{formatMoney(savingGoal ?? 0)}
                   </span>
                 </h1>
+                {/* <h1 className="font-bold text-cyan-600">
+                  ${formatMoney(current_savings_val ?? 0)}
+                </h1> */}
               </div>
               {savings_progress_percentage < 100 && (
                 <>

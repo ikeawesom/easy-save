@@ -259,11 +259,11 @@ export default function App() {
         ) : (
           <Container>
             <div className="flex flex-col gap-4 items-center justify-center py-8">
-              <h3 className="text-gray-600 text-center">
+              <h4 className="text-gray-600 text-center">
                 Set your savings goals to get started!
-              </h3>
+              </h4>
               <button
-                className="bg-cyan-600 text-white text-lg shadow-md rounded-md py-2 px-6 hover:bg-cyan-700 transition-colors"
+                className="bg-cyan-600 text-white shadow-md rounded-md py-2 px-6 hover:bg-cyan-700 transition-colors"
                 onClick={openModal}
               >
                 Begin Saving

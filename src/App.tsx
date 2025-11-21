@@ -151,7 +151,7 @@ export default function App() {
                   Just
                   <span className="font-bold text-green-700">
                     {" "}
-                    ${difference_to_monthly_goal}
+                    ${formatMoney(difference_to_monthly_goal)}
                   </span>{" "}
                   to reach your monthly target!
                 </p>

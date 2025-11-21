@@ -57,7 +57,7 @@ easy-save/
 ### 1. Clone the repository
 
 ```
-git clone https://github.com/your-username/easy-save.git
+git clone https://github.com/ikeawesom/easy-save.git
 cd easy-save
 ```
 

@@ -8,6 +8,8 @@ export default function SavingRecord({
   saving: SavingsType;
   index: number;
 }) {
+  const amt = saving.amount;
+
   return (
     <div
       key={saving.id}
@@ -20,7 +22,14 @@ export default function SavingRecord({
         {saving.date.split("T")[0]}{" "}
         {saving.date.split("T")[1].split("Z")[0].split(".")[0]}
       </p>
-      <h3 className="font-bold text-green-700">+${saving.amount}</h3>
+      <h3
+        className={twMerge(
+          "font-bold",
+          amt < 0 ? "text-red-700" : "text-green-700"
+        )}
+      >
+        {amt < 0 ? `-$${amt * -1}` : `+$${amt}`}
+      </h3>
     </div>
   );
 }

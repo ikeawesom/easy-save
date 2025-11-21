@@ -7,7 +7,7 @@ import { useSavings } from "./hooks/useSavings";
 import { calculateMonthlySavings, formatMoney, getCurrentMonth } from "./utils";
 import { pages, type PageType } from "./lib";
 import { usePage } from "./hooks/usePage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStorageState } from "./hooks/useStorageState";
 import type { SavingsType } from "./financeTypes";
 import { useAddSavings } from "./hooks/useAddSavings";
@@ -60,12 +60,12 @@ export default function App() {
     diff_monthly_savings_str,
   } = calculateMonthlySavings(current_savings);
 
-  const difference_to_monthly_goal = monthlySavingGoal - current_month_savings;
-  const savings_progress_percentage = (current_savings_val / savingGoal) * 100;
-
   useEffect(() => {
     if (updatedSavings) setCurrentSavings(updatedSavings);
   }, [addedSavings, updatedSavings]);
+
+  const difference_to_monthly_goal = monthlySavingGoal - current_month_savings;
+  const savings_progress_percentage = (current_savings_val / savingGoal) * 100;
 
   const isInvalidSavings =
     savingGoal <= 0 || monthlySavingGoal <= 0 || monthlySavingGoal > savingGoal;
@@ -80,6 +80,9 @@ export default function App() {
     "show_final_savings_reach"
   );
 
+  const showFinalModal =
+    showEditSavings === 0 && savings_progress_percentage >= 100;
+
   const dismissFinalSavingsReach = () => {
     setShowEditSavings(1);
   };
@@ -88,8 +91,7 @@ export default function App() {
     setShowMonthlySavingsReach(getCurrentMonth());
   };
 
-  const showFinalModal =
-    showEditSavings === 0 && savings_progress_percentage >= 100;
+  const [financeType, setFinanceType] = useState<"save" | "spend">("save");
 
   if (isLoading) {
     return (
@@ -277,14 +279,39 @@ export default function App() {
         allowClose={false}
       >
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-bold text-gray-800">Add Savings</h2>
+          <div className="flex w-full items-center justify-around">
+            <button
+              onClick={() => setFinanceType("save")}
+              className={twMerge(
+                "text-xl font-bold flex-1 pt-0 border-b pb-3",
+                financeType === "save"
+                  ? "text-cyan-600 border-cyan-600"
+                  : "text-gray-800 border-transparent"
+              )}
+            >
+              Add Savings
+            </button>
+            <button
+              onClick={() => setFinanceType("spend")}
+              className={twMerge(
+                "text-xl font-bold flex-1 pt-0 pb-3 border-b",
+                financeType === "spend"
+                  ? "text-cyan-600 border-cyan-600"
+                  : "text-gray-800 border-transparent"
+              )}
+            >
+              Add Expense
+            </button>
+          </div>
 
           <TextInput
             enabled={true}
             onChange={onChangeAddSavings}
             value={addedSavings}
             id="add_save_amt"
-            label="Enter amount saved:"
+            label={`Enter amount ${
+              financeType === "save" ? "saved" : "spent"
+            }:`}
           />
 
           <div className="flex gap-3 justify-end mt-2">
@@ -302,7 +329,7 @@ export default function App() {
                   ? "opacity-50"
                   : "cursor-pointer duration-200 hover:bg-cyan-700"
               )}
-              onClick={submitSaving}
+              onClick={() => submitSaving(financeType)}
             >
               Save
             </button>

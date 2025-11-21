@@ -212,12 +212,6 @@ export default function App() {
             Recent Savings
           </h3>
           <SavingsContainer monthly_savings={monthly_savings} />
-          <button
-            onClick={openSavingsModal}
-            className="shadow-2xl fixed bottom-8 left-1/2 -translate-x-1/2 bg-cyan-600 text-white text-3xl font-bold rounded-full flex items-center pb-2 px-3 justify-center hover:brightness-50 duration-200"
-          >
-            +
-          </button>
         </>
       )}
       {/* Settings Page */}
@@ -272,6 +266,12 @@ export default function App() {
           </Container>
         ))}
 
+      <button
+        onClick={openSavingsModal}
+        className="shadow-2xl fixed bottom-8 left-1/2 -translate-x-1/2 bg-cyan-600 text-white text-3xl font-bold rounded-full flex items-center pb-2 px-3 justify-center hover:brightness-50 duration-200"
+      >
+        +
+      </button>
       {/* Modal to add savings - HOME PAGE */}
       <Modal
         isOpen={isAddSavingsModalOpen}

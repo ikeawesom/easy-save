@@ -107,19 +107,23 @@ export default function App() {
 
       {/* Navigation Bar */}
       {locked && (
-        <Container className="flex items-center justify-evenly p-0 overflow-hidden">
-          {pages.map((item: PageType) => (
-            <button
-              onClick={() => setPage(item.id)}
-              key={item.id}
-              className="flex-1 hover:bg-black/10 py-4"
-            >
-              <p className={page === item.id ? "text-cyan-600 font-bold" : ""}>
-                {item.name}
-              </p>
-            </button>
-          ))}
-        </Container>
+        <div className="w-full flex items-center justify-center fixed bottom-0 left-0">
+          <Container className="rounded-none flex items-center justify-evenly p-0 overflow-hidden">
+            {pages.map((item: PageType) => (
+              <button
+                onClick={() => setPage(item.id)}
+                key={item.id}
+                className="flex-1 hover:bg-black/10 py-4"
+              >
+                <p
+                  className={page === item.id ? "text-cyan-600 font-bold" : ""}
+                >
+                  {item.name}
+                </p>
+              </button>
+            ))}
+          </Container>
+        </div>
       )}
       {/* Home Page */}
 
@@ -208,7 +212,7 @@ export default function App() {
           <SavingsContainer monthly_savings={monthly_savings} />
           <button
             onClick={openSavingsModal}
-            className="fixed bottom-10 right-10 bg-cyan-600 text-white text-3xl font-bold rounded-full  flex items-center pb-2 px-3 justify-center hover:brightness-50 duration-200"
+            className="shadow-2xl fixed bottom-8 left-1/2 -translate-x-1/2 bg-cyan-600 text-white text-3xl font-bold rounded-full flex items-center pb-2 px-3 justify-center hover:brightness-50 duration-200"
           >
             +
           </button>
